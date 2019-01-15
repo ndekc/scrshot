@@ -16,3 +16,4 @@
 2. Для встановлення необхідних пакетів Python выконати: pip install -r req.txt
 3. Для виконання программи: python scrshot.py (попередньо запустивши adb...)
 Для компіляції
+4. Для компіляції: pyinstaller --onefile scrshot.py
