@@ -11,7 +11,7 @@
     
     "directory_name": {
         "index_comment": "Номер директорії скріншотів",
-        "index": 46,
+        "index": 52,
 
         "prefix_comment": "Початок назви директорії скріншотів",
         "prefix": "viber"
@@ -38,7 +38,7 @@
         "swap_x": "False",
 
         "swap_y_comment": "Поміняти місцями y1 та y2.",
-        "swap_y": "False"
+        "swap_y": "True"
     },
 
     "file_name_comment": "назви файлів скріншотів",
