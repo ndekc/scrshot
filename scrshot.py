@@ -2,6 +2,7 @@
 import sys
 import os
 import cv2
+import re
 
 import configparser
 import json
@@ -38,8 +39,7 @@ class CompareImage:
         commutative_image_diff = (img_hist_diff / 10) + img_template_diff
         return commutative_image_diff
 
-
-
+config = None
 
 config = configparser.ConfigParser()
 with open('config.json', 'r') as f:
@@ -49,8 +49,21 @@ with open('config.json', 'r') as f:
 client = AdbClient(host=config['adb']['host'], port=config['adb']['port'])
 device = client.devices()[0]
 
-directory = f'scr\\{config["directory_name"]["prefix"]}{config["directory_name"]["index"]}\\'
+def get_last_directory_index():
+    regexp = re.compile(config['directory_settings']['prefix']+r'\d+')
 
+    for objects in os.walk(config["directory_settings"]["base_directory"]):
+        dirs = objects[1]
+        directories = list(filter(regexp.match, dirs))
+        index = 0
+        if (len(directories)) > 0:
+            index = max(list(map(int, [re.sub(r'\D+', '', d) for d in directories])))
+
+        return index
+
+directory = f'{config["directory_settings"]["base_directory"]}'\
+    + f'\\{config["directory_settings"]["prefix"]}'\
+    + str(get_last_directory_index()+1) + '\\'
 
 # Виконує знімок екрану
 def make_screenshot(name):
@@ -88,7 +101,8 @@ def swipe():
 
 # Формує ім'я файлу скріншоту
 def generate_scr_name(image_index):
-    return f"{directory}{config['file_name']['prefix']}_{image_index}{config['file_name']['extention']}"
+    return f"{directory}{config['file_name']['prefix']}"\
+    + f"_{image_index}{config['file_name']['extention']}"
 
 ''' 
 Виконує знімок екрану та свайп в заданому напрямку.
@@ -121,11 +135,12 @@ def create_screenshots(start_index):
 
                 elif not show_continue_promt():
                     flag = False
+
         i+=1
     
 
 def show_finish_promt():
-    c = input('Delete last screenshot, and finish? (n/Y)')
+    c = input('Delete last screenshot and finish? (n/Y)')
     return c.lower()!='n'
 
 def show_continue_promt():
@@ -136,6 +151,7 @@ def show_continue_promt():
 # Головна функція
 def main():
     create_screenshots(config['file_name']['index'])
+
 
 # Точка входу
 if __name__ == '__main__':

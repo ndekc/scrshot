@@ -8,14 +8,6 @@
 
     "push_back_after_finish_comment": "імітувати нитискання кнопки 'назад' після завершення",
     "push_back_after_finish": "True",
-    
-    "directory_name": {
-        "index_comment": "Номер директорії скріншотів",
-        "index": 52,
-
-        "prefix_comment": "Початок назви директорії скріншотів",
-        "prefix": "viber"
-    },
 
     "swipe_comment": "Cвайп",
     "swipe":{
@@ -39,6 +31,14 @@
 
         "swap_y_comment": "Поміняти місцями y1 та y2.",
         "swap_y": "True"
+    },
+
+    "directory_settings": {
+        "basic_directory_name_comment": "Назва базової директорії",
+        "base_directory": "scr",
+
+        "prefix_comment": "Початок назви директорії скріншотів",
+        "prefix": "messenger"
     },
 
     "file_name_comment": "назви файлів скріншотів",
